@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Pago</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Formulario de Pago</h1>
+
+<form id="paymentForm">
+    <label for="paymentMethod">Selecciona el método de pago:</label>
+    <select id="paymentMethod" onchange="toggleFields()">
+        <option value="creditCard">Tarjeta de Crédito</option>
+        <option value="debitCard">Tarjeta de Débito</option>
+        <option value="cash">Pago en Efectivo</option>
+    </select>
+
+    <div id="creditCardFields" class="hidden">
+        <label for="cedulaCredit">Cédula del Titular:</label>
+        <input type="text" id="cedulaCredit" name="cedulaCredit" required>
+
+        <label for="nombreCredit">Nombre del Titular:</label>
+        <input type="text" id="nombreCredit" name="nombreCredit" required>
+
+        <label for="numeroTarjeta">Número de Tarjeta:</label>
+        <input type="text" id="numeroTarjeta" name="numeroTarjeta" required>
+
+        <label for="ccv">CCV:</label>
+        <input type="text" id="ccv" name="ccv" required>
+    </div>
+
+    <div id="debitCardFields" class="hidden">
+        <label for="cedulaDebit">Cédula del Titular:</label>
+        <input type="text" id="cedulaDebit" name="cedulaDebit" required>
+
+        <label for="nombreDebit">Nombre del Titular:</label>
+        <input type="text" id="nombreDebit" name="nombreDebit" required>
+
+        <label for="numeroTarjetaDebit">Número de Tarjeta:</label>
+        <input type="text" id="numeroTarjetaDebit" name="numeroTarjetaDebit" required>
+
+        <label for="ccvDebit">CCV:</label>
+        <input type="text" id="ccvDebit" name="ccvDebit" required>
+    </div>
+
+    <div id="cashFields" class="hidden">
+        <label for="amount">Monto a Pagar:</label>
+        <input type="text" id="amount" name="amount" readonly>
+    </div>
+
+    <button type="submit">Pagar</button>
+</form>
+
+<script>
+    function toggleFields() {
+        var paymentMethod = document.getElementById('paymentMethod').value;
+        var creditCardFields = document.getElementById('creditCardFields');
+        var debitCardFields = document.getElementById('debitCardFields');
+        var cashFields = document.getElementById('cashFields');
+
+        creditCardFields.classList.add('hidden');
+        debitCardFields.classList.add('hidden');
+        cashFields.classList.add('hidden');
+
+        if (paymentMethod === 'creditCard') {
+            creditCardFields.classList.remove('hidden');
+        } else if (paymentMethod === 'debitCard') {
+            debitCardFields.classList.remove('hidden');
+        } else if (paymentMethod === 'cash') {
+            cashFields.classList.remove('hidden');
+            // Puedes establecer el valor a pagar aquí, por ejemplo, 100.00
+            document.getElementById('amount').value = '100.00';
+        }
+    }
+</script>
+
+</body>
+</html>
